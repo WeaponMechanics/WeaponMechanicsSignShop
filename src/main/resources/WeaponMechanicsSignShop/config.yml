@@ -1,0 +1,15 @@
+# Warning! Changing this value will break all previously existing sign shops!
+# you will have to break and replace them to get them to work again
+Identifier: "[Weapon]"
+
+# no variables...
+No_Permission_Message: "<red>You don't have permission to do that!"
+
+# variables:
+# %weapon% -> The title of the weapon purchased
+# %price% -> The cost of the purchase, to 2 decimal places
+# %count% -> The number of items purchased
+Buy_Message: "<green>You purchased <gray>%count% %weapon%(s) <green>for <gray>$%price%"
+
+# no variables...
+Not_Enough_Money_Message: "<red>You do not have enough money for that!"

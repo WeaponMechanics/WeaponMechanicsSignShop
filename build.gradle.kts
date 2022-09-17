@@ -19,7 +19,7 @@ bukkit {
     apiVersion = "1.13"
 
     authors = listOf("CJCrafter")
-    depend = listOf("MechanicsCore", "WeaponMechanics")
+    depend = listOf("MechanicsCore", "WeaponMechanics", "Vault")
 }
 
 repositories {
@@ -37,17 +37,10 @@ repositories {
             password = findProperty("pass").toString() // Check WeaponMechanics wiki on how to use this in your repo!
         }
     }
-
-    maven {
-        name = "lumine-repo"
-        url = uri("http://mvn.lumine.io/repository/maven-public/")
-        isAllowInsecureProtocol = true
-    }
 }
 
 dependencies {
     compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
-    implementation("io.lumine:Mythic-Dist:5.0.1-SNAPSHOT")
     compileOnly("me.deecaad:mechanicscore:1.5.6")
     compileOnly("me.deecaad:weaponmechanics:1.11.7")
     implementation("org.bstats:bstats-bukkit:3.0.0")
