@@ -1,4 +1,4 @@
-![Image](https://user-images.githubusercontent.com/18332343/188478631-ecccb1a6-51aa-4f9c-bfa6-de666c2658d9.png)  
+![WeaponMechanicsSignShopBanner](https://user-images.githubusercontent.com/43940682/191133612-9c8c2d03-368a-4c65-8393-21e624a70fd9.png)
 <div align="center">
 
   [![Download](https://img.shields.io/github/downloads/WeaponMechanics/WeaponMechanicsSignShop/total?color=green)](https://github.com/WeaponMechanics/WeaponMechanicsSignShop/releases/latest)
