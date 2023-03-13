@@ -1,7 +1,7 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 group = "me.cjcrafter"
-version = "1.0.0"
+version = "1.0.1"
 
 plugins {
     `java-library`
@@ -40,9 +40,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT")
-    compileOnly("me.deecaad:mechanicscore:1.5.6")
-    compileOnly("me.deecaad:weaponmechanics:1.11.7")
+    compileOnly("org.spigotmc:spigot-api:1.19.3-R0.1-SNAPSHOT")
+    compileOnly("me.deecaad:mechanicscore:2.1.6")
+    compileOnly("me.deecaad:weaponmechanics:2.1.8")
     implementation("org.bstats:bstats-bukkit:3.0.0")
 }
 
