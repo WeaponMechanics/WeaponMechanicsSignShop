@@ -1,20 +1,16 @@
-package me.cjcrafter.weaponmechanicssignshop;
+package com.cjcrafter.weaponmechanicssignshop;
 
 import me.deecaad.core.MechanicsCore;
 import me.deecaad.core.compatibility.CompatibilityAPI;
 import me.deecaad.core.compatibility.vault.IVaultCompatibility;
 import me.deecaad.core.file.Configuration;
 import me.deecaad.core.file.FileReader;
-import me.deecaad.core.file.TaskChain;
-import me.deecaad.core.lib.adventure.text.Component;
 import me.deecaad.core.utils.Debugger;
 import me.deecaad.core.utils.FileUtil;
 import me.deecaad.weaponmechanics.WeaponMechanics;
-import me.deecaad.weaponmechanics.lib.auto.UpdateChecker;
-import me.deecaad.weaponmechanics.lib.auto.UpdateInfo;
 import me.deecaad.weaponmechanics.weapon.info.InfoHandler;
+import net.kyori.adventure.text.Component;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -23,7 +19,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
@@ -38,10 +33,7 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
 
     private Configuration config;
     private Debugger debug;
-    private UpdateChecker update;
     private Metrics metrics;
-
-
 
     public void onEnable() {
         debug = new Debugger(getLogger(), 2); // hardcode 2 since this is a tiny plugin
@@ -70,7 +62,6 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
         pm.addPermission(use);
 
         registerBStats();
-        registerUpdateChecker();
     }
 
     @EventHandler
@@ -180,32 +171,6 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
         // See https://bstats.org/plugin/bukkit/WeaponMechanicsSignShop/16444. This is
         // the bStats plugin id used to track information.
         metrics = new Metrics(this, 16444);
-    }
-
-    private void registerUpdateChecker() {
-        if (update != null)
-            return;
-
-        update = new UpdateChecker(this, UpdateChecker.github("WeaponMechanics", "WeaponMechanicsSignShop"));
-
-        Listener listener = new Listener() {
-            @EventHandler
-            public void onJoin(PlayerJoinEvent event) {
-                if (event.getPlayer().isOp()) {
-                    new TaskChain(WeaponMechanicsSignShop.this)
-                            .thenRunAsync((callback) -> update.hasUpdate())
-                            .thenRunSync((callback) -> {
-                                UpdateInfo update = (UpdateInfo) callback;
-                                if (callback != null)
-                                    event.getPlayer().sendMessage(ChatColor.RED + "WeaponMechanicsSignShop is out of date! " + update.current + " -> " + update.newest);
-
-                                return null;
-                            });
-                }
-            }
-        };
-
-        Bukkit.getPluginManager().registerEvents(listener, this);
     }
 
     public boolean isShop(Sign sign) {

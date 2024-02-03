@@ -1,4 +1,4 @@
-package me.cjcrafter.weaponmechanicssignshop;
+package com.cjcrafter.weaponmechanicssignshop;
 
 import me.deecaad.core.file.Configuration;
 import me.deecaad.core.file.IValidator;
