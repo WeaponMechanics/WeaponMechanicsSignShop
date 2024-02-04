@@ -1,5 +1,5 @@
 group = "com.cjcrafter"
-version = "1.1.0"
+version = "1.1.1"
 
 plugins {
     `java-library`
@@ -9,7 +9,7 @@ plugins {
 
 // See https://github.com/Minecrell/plugin-yml
 bukkit {
-    main = "me.cjcrafter.weaponmechanicssignshop.WeaponMechanicsSignShop"
+    main = "com.cjcrafter.weaponmechanicssignshop.WeaponMechanicsSignShop"
     apiVersion = "1.13"
 
     authors = listOf("CJCrafter")
