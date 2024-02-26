@@ -26,8 +26,8 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.0")
 
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
-    compileOnly("com.cjcrafter:mechanicscore:3.2.5")
-    compileOnly("com.cjcrafter:weaponmechanics:3.2.6")
+    compileOnly("com.cjcrafter:mechanicscore:3.3.0")
+    compileOnly("com.cjcrafter:weaponmechanics:3.3.0")
 
     // Adventure Chat API
     compileOnly("net.kyori:adventure-api:4.15.0")
