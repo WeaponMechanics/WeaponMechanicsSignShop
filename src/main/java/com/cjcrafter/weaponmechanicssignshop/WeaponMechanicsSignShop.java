@@ -11,6 +11,7 @@ import me.deecaad.weaponmechanics.WeaponMechanics;
 import me.deecaad.weaponmechanics.weapon.info.InfoHandler;
 import net.kyori.adventure.text.Component;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -19,8 +20,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -68,6 +71,8 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
     public void onClick(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK)
             return;
+        if(!event.getHand().equals(EquipmentSlot.HAND))
+            return;
         if (!event.hasBlock())
             return;
         if (!(event.getClickedBlock().getState() instanceof Sign))
@@ -82,6 +87,8 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
         Sign sign = (Sign) event.getClickedBlock().getState();
         if (!isShop(sign))
             return;
+
+        event.setCancelled(true);
 
         // After getting the weapon, we should make sure it still exists
         String weapon = sign.getLine(1);
@@ -107,14 +114,22 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
         // Withdraw the money, give the weapons to the player, and send them
         // an alert that they made a purchase.
         vault.withdrawBalance(player, price);
-        WeaponMechanics.getWeaponHandler().getInfoHandler().giveOrDropWeapon(weapon, player, amount);
 
-        String msg = config.getString("Buy_Message");
-        msg = msg.replace("%weapon%", weapon);
-        msg = msg.replace("%price%", DECIMAL_FORMAT.format(price));
-        msg = msg.replace("%count%", String.valueOf(amount));
-        Component component = MechanicsCore.getPlugin().message.deserialize(msg);
-        MechanicsCore.getPlugin().adventure.player(player).sendMessage(component);
+        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+            @Override
+            public void run() {
+
+                WeaponMechanics.getWeaponHandler().getInfoHandler().giveOrDropWeapon(weapon, player, amount);
+
+                String msg = config.getString("Buy_Message");
+                msg = msg.replace("%weapon%", weapon);
+                msg = msg.replace("%price%", DECIMAL_FORMAT.format(price));
+                msg = msg.replace("%count%", String.valueOf(amount));
+                Component component = MechanicsCore.getPlugin().message.deserialize(msg);
+                MechanicsCore.getPlugin().adventure.player(player).sendMessage(component);
+
+            }
+        }, (long) (20*0.25));
     }
 
     @EventHandler
