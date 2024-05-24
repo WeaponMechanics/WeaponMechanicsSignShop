@@ -25,7 +25,6 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
@@ -113,7 +112,7 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
         // an alert that they made a purchase.
         vault.withdrawBalance(player, price);
 
-        Bukkit.getScheduler().runTaskLater(this, new BukkitRunnable() {
+        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
             @Override
             public void run() {
 
