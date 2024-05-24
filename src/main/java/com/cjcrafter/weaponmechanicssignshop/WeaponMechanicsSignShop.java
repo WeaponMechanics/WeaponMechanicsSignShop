@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
@@ -67,6 +68,8 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
     @EventHandler
     public void onClick(PlayerInteractEvent event) {
         if (event.getAction() != Action.RIGHT_CLICK_BLOCK)
+            return;
+        if(!event.getHand().equals(EquipmentSlot.HAND))
             return;
         if (!event.hasBlock())
             return;
