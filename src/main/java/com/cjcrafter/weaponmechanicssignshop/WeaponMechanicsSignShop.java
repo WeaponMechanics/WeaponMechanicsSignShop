@@ -11,6 +11,7 @@ import me.deecaad.weaponmechanics.WeaponMechanics;
 import me.deecaad.weaponmechanics.weapon.info.InfoHandler;
 import net.kyori.adventure.text.Component;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
@@ -24,6 +25,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.text.DecimalFormat;
 import java.util.Collections;
@@ -110,14 +112,22 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
         // Withdraw the money, give the weapons to the player, and send them
         // an alert that they made a purchase.
         vault.withdrawBalance(player, price);
-        WeaponMechanics.getWeaponHandler().getInfoHandler().giveOrDropWeapon(weapon, player, amount);
 
-        String msg = config.getString("Buy_Message");
-        msg = msg.replace("%weapon%", weapon);
-        msg = msg.replace("%price%", DECIMAL_FORMAT.format(price));
-        msg = msg.replace("%count%", String.valueOf(amount));
-        Component component = MechanicsCore.getPlugin().message.deserialize(msg);
-        MechanicsCore.getPlugin().adventure.player(player).sendMessage(component);
+        Bukkit.getScheduler().runTaskLater(this, new BukkitRunnable() {
+            @Override
+            public void run() {
+
+                WeaponMechanics.getWeaponHandler().getInfoHandler().giveOrDropWeapon(weapon, player, amount);
+
+                String msg = config.getString("Buy_Message");
+                msg = msg.replace("%weapon%", weapon);
+                msg = msg.replace("%price%", DECIMAL_FORMAT.format(price));
+                msg = msg.replace("%count%", String.valueOf(amount));
+                Component component = MechanicsCore.getPlugin().message.deserialize(msg);
+                MechanicsCore.getPlugin().adventure.player(player).sendMessage(component);
+
+            }
+        }, 1000);
     }
 
     @EventHandler
