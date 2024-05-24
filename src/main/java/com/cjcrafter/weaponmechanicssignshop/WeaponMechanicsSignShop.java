@@ -129,7 +129,7 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
                 MechanicsCore.getPlugin().adventure.player(player).sendMessage(component);
 
             }
-        }, (long) (20*0.5));
+        }, (long) (20*0.25));
     }
 
     @EventHandler
