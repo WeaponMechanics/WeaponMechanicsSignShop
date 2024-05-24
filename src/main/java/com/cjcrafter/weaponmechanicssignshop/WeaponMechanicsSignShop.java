@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -87,6 +88,8 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
         if (!isShop(sign))
             return;
 
+        event.setCancelled(true);
+
         // After getting the weapon, we should make sure it still exists
         String weapon = sign.getLine(1);
         if (!WeaponMechanics.getWeaponHandler().getInfoHandler().hasWeapon(weapon))
@@ -126,7 +129,7 @@ public class WeaponMechanicsSignShop extends JavaPlugin implements Listener {
                 MechanicsCore.getPlugin().adventure.player(player).sendMessage(component);
 
             }
-        }, 20*1);
+        }, (long) (20*0.5));
     }
 
     @EventHandler
