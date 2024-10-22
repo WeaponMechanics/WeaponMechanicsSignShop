@@ -18,6 +18,7 @@ bukkit {
 
 repositories {
     mavenCentral()
+    mavenLocal()
 
     maven(url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
@@ -26,8 +27,8 @@ dependencies {
     implementation("org.bstats:bstats-bukkit:3.0.0")
 
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
-    compileOnly("com.cjcrafter:mechanicscore:3.4.1")
-    compileOnly("com.cjcrafter:weaponmechanics:3.4.1")
+    compileOnly("com.cjcrafter:mechanicscore:3.4.13-FOLIA")
+    compileOnly("com.cjcrafter:weaponmechanics:3.4.14-FOLIA")
 
     // Adventure Chat API
     compileOnly("net.kyori:adventure-api:4.15.0")
